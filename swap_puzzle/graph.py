@@ -97,7 +97,11 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
+        for u in self :
+            dist(u) = 0
+            
         
+
 
     @classmethod
     def graph_from_file(cls, file_name):
