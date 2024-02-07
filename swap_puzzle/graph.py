@@ -114,7 +114,7 @@ class Graph:
             if dst in file :
                 chemin.append(dst)
                 return(chemin)
-            
+            return(None)
     bfs(self,graph1.in,graph1.path.out)
 
 
