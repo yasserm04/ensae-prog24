@@ -121,7 +121,7 @@ class Graph:
                 chemin.append(dst)
                 return(chemin)
             
-    bfs(graph1.in,graph1.path.out)
+    bfs(self,graph1.in,graph1.path.out)
 
 
     @classmethod
