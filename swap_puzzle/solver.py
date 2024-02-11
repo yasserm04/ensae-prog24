@@ -17,6 +17,8 @@ class Solver():
                 if self[k]>self[k+1] :
                     grid.swap(self[k],self[k+1])
 
+#Ici, la complexité vaut 2(mn)!, qui représente le cas où la grid est rangée dans l'ordre décroissant.
+
 import matplotlib.pyplot as plt
 
 def graphique(Self) :

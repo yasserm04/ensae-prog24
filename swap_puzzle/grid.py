@@ -73,9 +73,12 @@ class Grid():
             The two cells to swap. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        temp = cell1
-        cell1 = cell2
-        cell2 = temp
+        (i1,j1)=cell1                   
+        (i2,j2)=cell2
+        if (i1==i2 and abs(j1-j2)==1) or (j1==j2 and abs(i1-i2)==1):
+            (self.state[i1][j1],self.state[i2][j2])=(self.state[i2][j2],self.state[i1][j1])
+        else:
+            raise ValueError('les cellules ne sont pas voisines')
 
     def swap_seq(self, cell_pair_list):
         """
