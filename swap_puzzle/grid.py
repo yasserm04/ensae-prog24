@@ -2,11 +2,11 @@
 This is the grid module. It contains the Grid class and its associated methods.
 """
 
-# On importe ce dont on a besoin, notamment grâce à la question 5
+# On importe ce dont on a besoin, notamment permutations pour la question 6
 
 import random
 import numpy as np
-import itertools as it
+from itertools permutations
 from graph import Graph
 from queue import Queue
 
@@ -69,6 +69,8 @@ class Grid():
                 if self.state[k][l]>self.state[k][l+1] :
                     return False
         return True
+
+    """La complexité est de l'ordre de O(2mn), car on effectue mn actions avec les for, et à chaque fois on effectue une vérification supplémentaire avec if"""
 
     def swap(self, cell1, cell2):
         """
@@ -138,4 +140,120 @@ def representation_graphique(self):
 # Renvoie une matrice, où chaque couleur représente un chiffre en particulier de la grille
 
 """Question 6 :
-Les listes ne sont pas de type hashable. Il faut alors représenter les états de la grille par un booléen qui va indiquer si la grille est triée ou pas"""
+Les listes ne sont pas de type hashable.
+On peut alors transformer chaque grille en un tuple, qui est immuable
+On peut créer représenter toutes les formes possibles de la grille en trouvant toutes les permutations"""
+
+def noeuds (self);
+    m = self.m
+    n = self.n
+    liste = [k for k in range(1, (m*n+1))] # on crée la liste de tous les nombres contenus dans la grille
+    perm = tuple (permutations (liste)) # ce qui la rend hashable
+    total = []
+    for k in perm:
+        k = (np.array(k)).reshape((m, n))
+        k = tuple(tuple(element) for element in k) # il faut que tout soit hashable
+    total.append(k)
+    return total # renvoie une liste contenant toutes les grilles
+
+"""Question 7 :
+Pour générer tous les nœuds, on effectue une permutation sur une liste de taille m*n, aboutissant ainsi à (mn)! nœuds.
+
+Dans une grille de dimension mn, il est possible d'effectuer m*(n-1) échanges
+entre des cases adjacentes horizontalement et n*(m-1) échanges entre des cases adjacentes verticalement.
+Ainsi, chaque grille a m*(n-1) + n*(m-1) voisins.
+
+Si deux noeuds sont reliés, alors alors ils le sont via une unique arête.
+Par conséquent, le nombre total d'arêtes est donné par (m*n)! * (m(n-1) + n(m-1)) / 2.
+
+Concernant la complexité de l'algorithme BFS :
+
+Dans le scénario idéal où la grille est déjà triée, la complexité est constante.
+Dans le pire scénario, nécessitant le parcours de tous les sommets du graphe, la complexité est en O((m*n)!).
+Alors, en moyenne, si une grille est choisie au hasard, sa complexité est de l'ordre de O((mn)!/2), et donc O((mn)!).
+Cette complexité est considérablement plus élevée que celle de la méthode naïve.
+De plus, l'algorithme BFS appliqué aux grilles utilise la fonction liste_noeuds_a_relier, avec une complexité de l'ordre O((mn)!^3 * (mn)^2),
+et a donc une complexité encore plus élevée.
+
+Voici les fonctions ajoutées pour appliquer la méthode bfs :"""
+
+"""Fonction 1 : pour voir si deux listes de listes de même dimension sont égales, pour traiter le cas où src = dst"""
+def egal_matrices(G1,G2) :
+    for k in range (np.shape(G1)[0]) :
+        for l in range (np.shape(G1)[1]) :
+            if G1[k][l] != G2[k][l] :
+                return False
+        return True
+
+"""Fonction 2 : permet de vérifier si un couple de listes de listes est présent
+dans un une liste de couples de listes de listes"
+
+def dans_liste(G1,G2, liste) :
+    for (k,l) in liste :
+        if egal_matrices(G1,k) and egal_matrices(Gé,l) :
+            return True
+    return False
+
+"""Fonction 3 : pour trouver les voisins dans le graphe, renvoie liset des couples voisins"""
+
+def liste_noeuds_voisins(self):
+    m = self.m
+    n = self.n
+    L = []
+    for M1 in self.noeuds ();
+        M11 = [list (t) for t in M1]
+        for M2 in self.noeuds ():
+            M21 = [list(t) for t in M2]
+            if not egal_matrices(M11, M21):
+                if not dans_liste (M11, M21, L) and not Grid.dans_liste (M21, M11, L):
+                    if (M1,M2) not in L and, (M2,M1) not in L :
+                            L.append((M1,M2))
+    return L
+
+
+"""Fonction 4 : méthode BFS pour la grille. Renvoie tous les chemins dans solution"""
+
+def chemin_le_plus_court(self, src, dst):
+    graphe_grilles = Graph(Grid.noeuds (self))
+    for (i, j) in self.liste_noeuds_voisins():
+        graphe_grilles.add_edge(i, j)
+    src = tuple(tuple (element) for element in src)
+    dst = tuple(tuple (element) for element in dst)
+    solution = graphe_grilles.bfs(self,src, dst)
+    sol = [[list(t) for t in G] for G in solution]
+    return sol
+
+"""Question 8 :
+On construit le chemin pendant la recherche, en s'inspirant du premier bfs"""
+
+def nv_bfs(self, src, dst):
+    queue = Queue()
+    visited = []
+    parents = {} # dictionnaire du type {sommet : voisin parcouru juste avant}
+    g = {} # on initialise  dictionnaire du graphe
+    while file :
+        x = file.get()
+        if x == dst:
+            break
+        if x not in visited :
+            if x not in g:
+                g[x] = [] # on crée le dictionnaire au fur et à mesure qu'on en a besoin
+                for (i, j) in liste_noeuds_voisins(self):
+                    i1 = [list(t) for t in i]
+                    j1 = [list(t) for t in j]
+                    if egal_matrices(i1, j1):
+                        g[x].append(j)
+                    elif egal_matrices(j, x):
+                        g[x].append(i)
+            visited.append(x)
+        for voisin in g[x]:
+            if voisin not in visited :
+                file.put(voisin)
+                parents[voisin] = x
+                visited.append(voisin)
+    chemin = [dst]
+    y = dst
+    while != src :
+        y = parents[y]
+        chemin = [y]+chemin
+    return chemin
