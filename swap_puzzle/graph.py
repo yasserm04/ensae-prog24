@@ -103,12 +103,25 @@ class Graph:
         
         visited = []
         queue = Queue()
+        queue.put(src)
 
         if src == dst :
             return("Même noeud de départ que d'arrivée")
 
-        while queue :
-            chemin = 
+        while queue : #vérifie si file d'attente vide ou pas
+            chemin = queue.get()
+            node = chemin[-1] #càd dernier noeud visité
+            if node not in visited :
+                voisins = self.graph[node] #voisins du dernier noeud visité
+                for voisin in voisins :
+                    nv_chemin = list(chemin)
+                    nv_chemin.append(voisin) #on rajoute nv voisin au chemin testé
+                    queue.append(nv_chemin) #on rajoute le chemin jusqu'ici dans les chemins en attente
+                    if voisin == dst :
+                        return("Le chemin le plus court est".format(src,dst,nv_chemin))
+                visited.append(node)
+        return("Pas de chemin entre source et destination")
+
         
         if dst in graph[src] :
             ch
