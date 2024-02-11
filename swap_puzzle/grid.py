@@ -2,7 +2,13 @@
 This is the grid module. It contains the Grid class and its associated methods.
 """
 
+# On importe ce dont on a besoin, notamment grâce à la question 5
+
 import random
+import numpy as np
+import itertools as it
+from graph import Graph
+from queue import Queue
 
 class Grid():
     """
@@ -58,9 +64,10 @@ class Grid():
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        for k in range (m*n-1) :
-            if self.state[k]>self.state[k+1] :
-                return False
+        for k in range (self.m) :
+            for l in range (self.n-1) :
+                if self.state[k][l]>self.state[k][l+1] :
+                    return False
         return True
 
     def swap(self, cell1, cell2):
@@ -92,7 +99,7 @@ class Grid():
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
         for(cell1,cell2) in cell_pair_list :
-            grid.swap(cell1,cell2)
+            self.swap(cell1,cell2)
 
     @classmethod
     def grid_from_file(cls, file_name): 
@@ -123,3 +130,12 @@ class Grid():
         return grid
 
 
+"""Question 4"""
+
+def representation_graphique(self):
+    grille = np.array(self.state)
+    plt.matshow(grille)
+# Renvoie une matrice, où chaque couleur représente un chiffre en particulier de la grille
+
+"""Question 6 :
+Les listes ne sont pas de type hashable. Il faut alors représenter les états de la grille par un booléen qui va indiquer si la grille est triée ou pas"""
