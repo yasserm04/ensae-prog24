@@ -2,6 +2,9 @@
 This is the graph module. It contains a minimalistic Graph class.
 """
 
+from queue import Queue
+import numpy as np
+
 class Graph:
     """
     A class representing undirected graphs as adjacency lists. 
@@ -97,7 +100,15 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
-        chemin = [src]
+        
+        visited = []
+        queue = Queue()
+
+        if src == dst :
+            return("Même noeud de départ que d'arrivée")
+
+        while queue :
+            chemin = 
         
         if dst in graph[src] :
             ch
