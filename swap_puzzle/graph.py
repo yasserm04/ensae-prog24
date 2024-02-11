@@ -97,24 +97,29 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
-        chemin = []
-        file = [src]
-        Voisins = graph_input.graph[src]
+        chemin = [src]
         
-        for noeud in Voisins :
-            if (noeud in file) == False :
-                file.append(noeud)
+        if dst in graph[src] :
+            ch
+            return chemin
+
+        while dst not in chemin :
+            for x in file :
+                for noeud in graph[file] :
+                    if noeud not in file :
+                        file.append(noeud)
         
-        for Voisins in file :
-            voisins = graph_input.graph[Voisins]
-            for noeud in voisins :
-                if (noeud in file) == False :
-                    file.append(noeud)
-            chemin.append(Voisins)
-            if dst in file :
-                chemin.append(dst)
-                return(chemin)
+            for v in file :
+                voisins = graph_input.graph[v]
+                for noeud in voisins :
+                    if noeud not in file :
+                        file.append(noeud)
+                chemin.append(v)
+                if dst in file :
+                    chemin.append(dst)
+                    return(chemin)
             return(None)
+
     bfs(self,graph1.in,graph1.path.out)
 
 
