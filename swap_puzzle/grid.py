@@ -225,7 +225,7 @@ def chemin_le_plus_court(self, src, dst):
 On construit le chemin pendant la recherche, en s'inspirant du premier bfs"""
 
 def nv_bfs(self, src, dst):
-    queue = Queue()
+    queue = Queue([src])
     visited = []
     parents = {} # dictionnaire du type {sommet : voisin parcouru juste avant}
     g = {} # on initialise  dictionnaire du graphe
