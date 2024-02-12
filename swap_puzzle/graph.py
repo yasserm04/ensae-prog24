@@ -121,9 +121,6 @@ class Graph:
                 visited.append(node)
         return("Pas de chemin entre source et destination")
 
-    bfs(self,graph1.in,graph1.path.out)
-
-
     @classmethod
     def graph_from_file(cls, file_name):
         """
