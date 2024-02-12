@@ -251,7 +251,7 @@ def nv_bfs(self, src, dst):
                 visited.append(voisin)
     chemin = [dst]
     y = dst
-    while != src :
+    while y != src :
         y = parents[y]
         chemin = [y]+chemin
     return chemin
