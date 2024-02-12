@@ -103,7 +103,7 @@ class Graph:
         
         visited = []
         queue = Queue()
-        queue.put(src)
+        queue.put([src])
 
         if src == dst :
             return("Même noeud de départ que d'arrivée")
@@ -115,7 +115,7 @@ class Graph:
                 voisins = self.graph[node] #voisins du dernier noeud visité
                 for voisin in voisins :
                     chemin.append(voisin) #on rajoute nv voisin au chemin testé
-                    queue.append(chemin) #on rajoute le chemin jusqu'ici dans les chemins en attente
+                    queue.put(chemin) #on rajoute le chemin jusqu'ici dans les chemins en attente
                     if voisin == dst :
                         return("Le chemin le plus court est".format(src,dst,nv_chemin))
                 visited.append(node)
