@@ -122,28 +122,6 @@ class Graph:
                 visited.append(node)
         return("Pas de chemin entre source et destination")
 
-        
-        if dst in graph[src] :
-            ch
-            return chemin
-
-        while dst not in chemin :
-            for x in file :
-                for noeud in graph[file] :
-                    if noeud not in file :
-                        file.append(noeud)
-        
-            for v in file :
-                voisins = graph_input.graph[v]
-                for noeud in voisins :
-                    if noeud not in file :
-                        file.append(noeud)
-                chemin.append(v)
-                if dst in file :
-                    chemin.append(dst)
-                    return(chemin)
-            return(None)
-
     bfs(self,graph1.in,graph1.path.out)
 
 
