@@ -254,4 +254,5 @@ def nv_bfs(self, src, dst):
     while y != src :
         y = parents[y]
         chemin = [y]+chemin
+    chemin.reverse()
     return chemin
