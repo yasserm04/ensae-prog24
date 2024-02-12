@@ -229,8 +229,8 @@ def nv_bfs(self, src, dst):
     visited = []
     parents = {} # dictionnaire du type {sommet : voisin parcouru juste avant}
     g = {} # on initialise  dictionnaire du graphe
-    while file :
-        x = file.get()
+    while queue :
+        x = queue.get()
         if x == dst:
             break
         if x not in visited :
@@ -246,7 +246,7 @@ def nv_bfs(self, src, dst):
             visited.append(x)
         for voisin in g[x]:
             if voisin not in visited :
-                file.put(voisin)
+                queue.put(voisin)
                 parents[voisin] = x
                 visited.append(voisin)
     chemin = [dst]
