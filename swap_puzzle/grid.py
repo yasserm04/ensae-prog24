@@ -165,11 +165,9 @@ Par conséquent, le nombre total d'arêtes est donné par (m*n)! * (m(n-1) + n(m
 
 Concernant la complexité de l'algorithme BFS :
 
-Dans le scénario idéal où la grille est déjà triée, la complexité est constante.
 Dans le pire scénario, nécessitant le parcours de tous les sommets du graphe, la complexité est en O((m*n)!).
-Alors, en moyenne, si une grille est choisie au hasard, sa complexité est de l'ordre de O((mn)!/2), et donc O((mn)!).
 Cette complexité est considérablement plus élevée que celle de la méthode naïve.
-De plus, l'algorithme BFS appliqué aux grilles utilise la fonction liste_noeuds_a_relier, avec une complexité de l'ordre O((mn)!^3 * (mn)^2),
+De plus, l'algorithme BFS appliqué aux grilles utilise la fonction liste_noeuds_voisins, avec une complexité de l'ordre O((mn)!^3 * (mn)^2),
 et a donc une complexité encore plus élevée.
 
 Voici les fonctions ajoutées pour appliquer la méthode bfs :"""
