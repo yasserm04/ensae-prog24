@@ -6,7 +6,7 @@ This is the grid module. It contains the Grid class and its associated methods.
 
 import random
 import numpy as np
-from itertools permutations
+from itertools import permutations
 from graph import Graph
 from queue import Queue
 
@@ -82,9 +82,12 @@ class Grid():
             The two cells to swap. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        temp = cell1
-        cell1 = cell2
-        cell2 = temp
+        (i1,j1) = cell1
+        (i2,j2) = cell2
+        if (i1==i2 and abs(j1-j2)==1) or (j1==j2 and abs(i1-i2)==1) :
+            (self.state[i1][j1],self.state[i2][j2])=(self.state[i2][j2],self.state[i1][j1])
+        else :
+            raise ValueError("Les cellules ne sont pas voisines")
 
     def swap_seq(self, cell_pair_list):
         """
@@ -150,7 +153,7 @@ def noeuds (self);
     for k in perm:
         k = (np.array(k)).reshape((m, n))
         k = tuple(tuple(element) for element in k) # il faut que tout soit hashable
-    total.append(k)
+        total.append(k)
     return total # renvoie une liste contenant toutes les grilles
 
 """Question 7 :
@@ -181,7 +184,7 @@ def egal_matrices(G1,G2) :
         return True
 
 """Fonction 2 : permet de vérifier si un couple de listes de listes est présent
-dans un une liste de couples de listes de listes"
+dans un une liste de couples de listes de listes"""
 
 def dans_liste(G1,G2, liste) :
     for (k,l) in liste :
