@@ -100,7 +100,8 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
-        
+
+        """
         visited = []
         queue = Queue()
         queue.put([src])
@@ -120,6 +121,24 @@ class Graph:
                         return("Le chemin le plus court est".format(src,dst,nv_chemin))
                 visited.append(node)
         return("Pas de chemin entre source et destination")
+        """
+
+        queue = [src]
+        visited = {src : src}
+        while queue :
+            node = queue.pop(0)
+            for neighbour in self.graph[node] :
+                if neighbour not in visited :
+                    visited[neighbour] = node
+                    if neighbour == dst :
+                        break
+                    queue.append(neighbour)
+        chemin = [dst]
+        node = dst
+        while node != src :
+            node = visited[node]
+            chemin.append(node)
+        return chemin.reverse()
 
     @classmethod
     def graph_from_file(cls, file_name):
