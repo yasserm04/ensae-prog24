@@ -138,7 +138,7 @@ class Graph:
         while node != src :
             node = visited[node]
             chemin.append(node)
-        return chemin.reverse()
+        return chemin[::-1]
 
     @classmethod
     def graph_from_file(cls, file_name):
