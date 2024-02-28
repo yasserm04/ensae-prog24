@@ -204,7 +204,7 @@ def liste_noeuds_voisins(self):
             M21 = [list(t) for t in M2]
             if not egal_matrices(M11, M21):
                 if not dans_liste (M11, M21, L) and not Grid.dans_liste (M21, M11, L):
-                    if (M1,M2) not in L and, (M2,M1) not in L :
+                    if (M1,M2) not in L and (M2,M1) not in L :
                             L.append((M1,M2))
     return L
 
