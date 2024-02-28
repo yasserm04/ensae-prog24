@@ -198,7 +198,7 @@ def liste_noeuds_voisins(self):
     m = self.m
     n = self.n
     L = []
-    for M1 in self.noeuds ();
+    for M1 in self.noeuds () :
         M11 = [list (t) for t in M1]
         for M2 in self.noeuds ():
             M21 = [list(t) for t in M2]
