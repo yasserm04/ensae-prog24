@@ -144,7 +144,7 @@ Les listes ne sont pas de type hashable.
 On peut alors transformer chaque grille en un tuple, qui est immuable
 On peut créer représenter toutes les formes possibles de la grille en trouvant toutes les permutations"""
 
-def noeuds (self);
+def noeuds (self) :
     m = self.m
     n = self.n
     liste = [k for k in range(1, (m*n+1))] # on crée la liste de tous les nombres contenus dans la grille

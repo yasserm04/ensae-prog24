@@ -10,5 +10,3 @@ print(file_name)
 
 g = Grid.grid_from_file(file_name)
 print(g)
-
-graph_from_file(cls, graph1.in)
