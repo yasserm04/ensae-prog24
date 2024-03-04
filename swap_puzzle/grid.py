@@ -9,6 +9,7 @@ import numpy as np
 from itertools import permutations
 from graph import Graph
 from queue import Queue
+import matplotlib.pyplot as plt
 
 class Grid():
     """

@@ -101,27 +101,6 @@ class Graph:
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
 
-        """
-        visited = []
-        queue = Queue()
-        queue.put([src])
-
-        if src == dst :
-            return("Même noeud de départ que d'arrivée")
-
-        while queue : #vérifie si file d'attente vide ou pas
-            chemin = [queue.get()]
-            node = chemin[-1] #càd dernier noeud visité
-            if node not in visited :
-                voisins = self.graph[node] #voisins du dernier noeud visité
-                for voisin in voisins :
-                    chemin.append(voisin) #on rajoute nv voisin au chemin testé
-                    queue.put(chemin) #on rajoute le chemin jusqu'ici dans les chemins en attente
-                    if voisin == dst :
-                        return("Le chemin le plus court est".format(src,dst,nv_chemin))
-                visited.append(node)
-        return("Pas de chemin entre source et destination")
-        """
 
         queue = [src]
         visited = {src : src}
@@ -133,6 +112,8 @@ class Graph:
                     if neighbour == dst :
                         break
                     queue.append(neighbour)
+        if dst not in chemin :
+            raise ValueError("chemin impossible")
         chemin = [dst]
         node = dst
         while node != src :
