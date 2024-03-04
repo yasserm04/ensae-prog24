@@ -69,6 +69,9 @@ class Grid():
             for l in range (self.n-1) :
                 if self.state[k][l]>self.state[k][l+1] :
                     return False
+        for k in range (self.m-1)    
+            if self.state[k][self.n]>self.state[k+1][0] :
+                return False
         return True
 
     """La complexité est de l'ordre de O(2mn), car on effectue mn actions avec les for, et à chaque fois on effectue une vérification supplémentaire avec if"""
@@ -145,17 +148,24 @@ Les listes ne sont pas de type hashable.
 On peut alors transformer chaque grille en un tuple, qui est immuable
 On peut créer représenter toutes les formes possibles de la grille en trouvant toutes les permutations"""
 
+def grid_as_tuple (self) : # pour renvoyer la grille en tant que tuple, on sait jamais
+    L = []
+    for k in range (len(self.state)) :
+        L.append(tupple(self.state[k])) :
+    L = tuple (L)
+    return L
+
 def noeuds (self) :
-    m = self.m
-    n = self.n
-    liste = [k for k in range(1, (m*n+1))] # on crée la liste de tous les nombres contenus dans la grille
-    perm = tuple (permutations (liste)) # ce qui la rend hashable
+    (m,n) = = (self.m,self.n)
+    liste = [k for k in range(1, m*n+1)] # on crée la liste de tous les nombres contenus dans la grille
+    perm = tuple (permutations (liste)) # on prend toutes les permutations possibles, sous forme de tuple ce qui les rend hashables
     total = []
     for k in perm:
         k = (np.array(k)).reshape((m, n))
         k = tuple(tuple(element) for element in k) # il faut que tout soit hashable
         total.append(k)
     return total # renvoie une liste contenant toutes les grilles
+
 
 """Question 7 :
 Pour générer tous les nœuds, on effectue une permutation sur une liste de taille m*n, aboutissant ainsi à (mn)! nœuds.
