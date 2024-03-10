@@ -164,7 +164,7 @@ def noeuds (self) :
         k = (np.array(k)).reshape((m, n))
         k = tuple(tuple(element) for element in k) # il faut que tout soit hashable
         total.append(k)
-    return total # renvoie une liste contenant toutes les grilles
+    return total # renvoie une liste contenant toutes les grilles (qui sont des tuples de tuples)
 
 
 """Question 7 :
@@ -174,7 +174,7 @@ Dans une grille de dimension mn, il est possible d'effectuer m*(n-1) échanges
 entre des cases adjacentes horizontalement et n*(m-1) échanges entre des cases adjacentes verticalement.
 Ainsi, chaque grille a m*(n-1) + n*(m-1) voisins.
 
-Si deux noeuds sont reliés, alors alors ils le sont via une unique arête.
+Si deux noeuds sont reliés, alors ils le sont via une unique arête.
 Par conséquent, le nombre total d'arêtes est donné par (m*n)! * (m(n-1) + n(m-1)) / 2.
 
 Concernant la complexité de l'algorithme BFS :
@@ -203,7 +203,7 @@ def dans_liste(G1,G2, liste) :
             return True
     return False
 
-"""Fonction 3 : pour trouver les voisins dans le graphe, renvoie liset des couples voisins"""
+"""Fonction 3 : pour trouver les voisins dans le graphe, renvoie liste des couples voisins"""
 
 def liste_noeuds_voisins(self):
     m = self.m
@@ -220,50 +220,61 @@ def liste_noeuds_voisins(self):
     return L
 
 
-"""Fonction 4 : méthode BFS pour la grille. Renvoie tous les chemins dans solution"""
+"""Fonction 4 : méthode BFS pour la grille. Renvoie tous les chemins dans sol
+On transforme la grille en un graph pour pouvoir appliquer le bfs de la classe Graph
+Puis on choisit le chemin le plus court"""
 
 def chemin_le_plus_court(self, src, dst):
     graphe_grilles = Graph(Grid.noeuds (self))
     for (i, j) in self.liste_noeuds_voisins():
-        graphe_grilles.add_edge(i, j)
+        graphe_grilles.add_edge(i, j) # pour mettre limites au graphe en fonction de la grille
     src = tuple(tuple (element) for element in src)
     dst = tuple(tuple (element) for element in dst)
     solution = graphe_grilles.bfs(self,src, dst)
     sol = [[list(t) for t in G] for G in solution]
-    return sol
+    sol2 = []
+    k = 0
+    while sol2 :
+        for j in range(len(sol)) :
+            if len(sol[j]) == k :
+                sol2.append(sol[j])
+            k = k+1
+    return sol2
 
 """Question 8 :
 On construit le chemin pendant la recherche, en s'inspirant du premier bfs"""
 
 def nv_bfs(self, src, dst):
-    queue = Queue([src])
-    visited = []
-    parents = {} # dictionnaire du type {sommet : voisin parcouru juste avant}
-    g = {} # on initialise  dictionnaire du graphe
-    while queue :
-        x = queue.get()
-        if x == dst:
-            break
-        if x not in visited :
-            if x not in g:
-                g[x] = [] # on crée le dictionnaire au fur et à mesure qu'on en a besoin
-                for (i, j) in liste_noeuds_voisins(self):
-                    i1 = [list(t) for t in i]
-                    j1 = [list(t) for t in j]
-                    if egal_matrices(i1, j1):
-                        g[x].append(j)
-                    elif egal_matrices(j, x):
-                        g[x].append(i)
-            visited.append(x)
-        for voisin in g[x]:
-            if voisin not in visited :
-                queue.put(voisin)
-                parents[voisin] = x
-                visited.append(voisin)
-    chemin = [dst]
-    y = dst
-    while y != src :
-        y = parents[y]
-        chemin = [y]+chemin
-    chemin.reverse()
-    return chemin
+    if egal_matrices(src,dst) :
+        return "Même source et destination"
+    else :    
+        queue = [src]
+        visited = [] # liste de noeuds visités, différente de la queue
+        parents = {} 
+        g = {} # on initialise dictionnaire du graphe
+        while queue :
+            x = queue.pop(0)
+            if x == dst:
+                break
+            if x not in visited :
+                if x not in g:
+                    g[x] = [] # on crée le dictionnaire au fur et à mesure qu'on en a besoin
+                    for (i, j) in liste_noeuds_voisins(self):
+                        i1 = [list(t) for t in i]
+                        j1 = [list(t) for t in j]
+                        if egal_matrices(i1, x):
+                            g[x].append(i)
+                        elif egal_matrices(j1, x):
+                            g[x].append(j)
+                visited.append(x)
+            for voisin in g[x]:
+                if voisin not in visited :
+                    queue.append(voisin)
+                    parents[voisin] = x
+                    visited.append(voisin)
+        chemin = [dst]
+        y = dst
+        while y != src :
+            y = parents[y]
+            chemin.append(y)
+        return chemin[::-1]
