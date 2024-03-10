@@ -69,7 +69,7 @@ class Grid():
             for l in range (self.n-1) :
                 if self.state[k][l]>self.state[k][l+1] :
                     return False
-        for k in range (self.m-1)    
+        for k in range (self.m-1) :
             if self.state[k][self.n]>self.state[k+1][0] :
                 return False
         return True
@@ -151,12 +151,12 @@ On peut créer représenter toutes les formes possibles de la grille en trouvant
 def grid_as_tuple (self) : # pour renvoyer la grille en tant que tuple, on sait jamais
     L = []
     for k in range (len(self.state)) :
-        L.append(tupple(self.state[k])) :
+        L.append(tupple(self.state[k]))
     L = tuple (L)
     return L
 
 def noeuds (self) :
-    (m,n) = = (self.m,self.n)
+    (m,n) = (self.m,self.n)
     liste = [k for k in range(1, m*n+1)] # on crée la liste de tous les nombres contenus dans la grille
     perm = tuple (permutations (liste)) # on prend toutes les permutations possibles, sous forme de tuple ce qui les rend hashables
     total = []

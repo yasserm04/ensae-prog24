@@ -1,7 +1,9 @@
 from grid import Grid
 
 g = Grid(2, 3)
-print(g)
+h = Grid(4,4,[[1,2,7,8],[4,5,6,3],[11,13,10,9],[12,14,15,16]])
+
+print(g, h)
 
 data_path = "input/"
 file_name = data_path + "grid0.in"
