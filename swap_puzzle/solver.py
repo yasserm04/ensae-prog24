@@ -13,11 +13,17 @@ class Solver():
         # TODO: implement this function (and remove the line "raise NotImplementedError").
         # NOTE: you can add other methods and subclasses as much as necessary. The only thing imposed is the format of the solution returned.
         while is_sorted(self) == False :
-            for k in range(m*n-1) :
-                if self[k]>self[k+1] :
-                    grid.swap(self[k],self[k+1])
-
-#Ici, la complexité vaut 2(mn)!, qui représente le cas où la grid est rangée dans l'ordre décroissant.
+            X = []
+            for k in range(self.m) :
+                for l in range(self.n-1)
+                    if self[k][l]>self[k+1][l] :
+                        grid.swap(self[k][l],self[k+1][l])
+                        X.append(((k,l),(k+1,l)))
+            for k in range(self.m-1) :
+                if self.state[k][self.n]>self.state[k+1][0] :`
+                grid.swap(self[k][self.n],self[k+1][0])
+                        X.append(((k,self.n),(k+1,0)))
+        return X
 
 import matplotlib.pyplot as plt
 
