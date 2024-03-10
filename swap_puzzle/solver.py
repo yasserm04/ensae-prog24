@@ -25,43 +25,47 @@ def graphique(Self) :
     plt.show()
 
 import heapq
+from grid import Grid
 
-def A_star(self, src, dst):
-    if egal_matrices(src, dst):
-        return "Même source et destination"
-    else:
-        Solution = Grid(grid.m, grid.n).grid_as_tuple()
-        Queue = [(0, src)]  # Tuple de priorité et de grille
-        Visited = set()  # Ensemble de grilles visitées
-        Parent = {}  # Dictionnaire de grilles parents
-        Found = False
+def heuristic(self, src, dst):
+    objectif = {}
+    for i in range(len(dst)):
+        for j in range(len(dst[0])):
+            num = goal_state[i][j]
+            goal_positions[num] = (i, j)
+    
+    distance = 0
+    for i in range(len(src)):
+        for j in range(len(src[0])):
+            current_num = src[i][j]
+            goal_pos = goal_positions[current_num]
+            distance += abs(i - goal_pos[0]) + abs(j - goal_pos[1])
+    return distance
 
-        while Queue and not Found:
-            # Extraire la grille avec la plus petite priorité de la file de priorité
-            _, Current_grid = heapq.heappop(Queue)
+# J'utilise la distance de Manhattan : ce n'est pas la plus sophistiquée mais je n'ai pas trouvé comment utiliser la borne inf 
 
-            if Current_grid not in Visited:
-                Visited.add(Current_grid)
 
-                # Trouver les grilles adjacentes à la grille actuelle
-                Next_grids = Grid(len(Current_grid), len(Current_grid[0]), Current_grid).adjacent_grids()
+def a_star(grid):
+    src = grid.grid_as_tuple()
+    dst = Grid(grid.m, grid.n).grid_as_tuple()  # src de même taille
+    open_list = [(Solver.heuristic(src, dst), 0, src, [])]
+    heapq.heapify(open_list) #transforme en un tas
 
-                for (N, swap) in Next_grids:
-                    # Calculer la priorité : coût actuel + estimation du coût restant
-                    priority = len(Parent) + len(Solver.get_solution(N))
-                    
-                    if N not in Parent or priority < Parent[N][0]:
-                        Parent[N] = (priority, Current_grid, swap)
-                        heapq.heappush(Queue, (priority, N))
+    visited = {src: 0}
 
-                    if N == Solution:
-                        Found = True
+    while open_list:
+    heur, cost, current_state, moves = heapq.heappop(open_list)
 
-        # Reconstruire le chemin
-        path = []
-        N = Solution
-        while N != src:
-            _, N, swap = Parent[N]
-            path.append(swap)
-        path.reverse()
-        return path
+        if current_state == dst:
+            return moves
+
+        for next_grid, swap in grid.liste_noeuds_voisins():
+            next_state = next_grid.grid_as_tuple()
+            next_cost = cost + 1
+                
+            if next_state not in visited or next_cost < visited[next_state]:
+                visited[next_state] = next_cost
+                priority = next_cost + Solver.heuristic(next_state, dst)
+                heapq.heappush(open_list, (priority, next_cost, next_state, moves + [swap]))
+
+    raise ValueError("Pas de chemin")
