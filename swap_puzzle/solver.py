@@ -37,7 +37,7 @@ def heuristic(self, src, dst):
     objectif = {}
     for i in range(len(dst)):
         for j in range(len(dst[0])):
-            num = goal_state[i][j]
+            num = dst[i][j]
             goal_positions[num] = (i, j)
     
     distance = 0
