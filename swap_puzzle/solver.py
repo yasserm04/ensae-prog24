@@ -34,15 +34,15 @@ import heapq
 from grid import Grid
 
 def heuristic(self, src, dst):
-    objectif = {}
+    goal_positions = {}
     for i in range(len(dst)):
-        for j in range(len(dst[0])):
+        for j in range(len(dst[i])):
             num = dst[i][j]
             goal_positions[num] = (i, j)
     
     distance = 0
     for i in range(len(src)):
-        for j in range(len(src[0])):
+        for j in range(len(src[i])):
             current_num = src[i][j]
             goal_pos = goal_positions[current_num]
             distance += abs(i - goal_pos[0]) + abs(j - goal_pos[1])
@@ -60,7 +60,7 @@ def a_star(grid):
     visited = {src: 0}
 
     while open_list:
-    heur, cost, current_state, moves = heapq.heappop(open_list)
+        heur, cost, current_state, moves = heapq.heappop(open_list)
 
         if current_state == dst:
             return moves
@@ -74,4 +74,4 @@ def a_star(grid):
                 priority = next_cost + Solver.heuristic(next_state, dst)
                 heapq.heappush(open_list, (priority, next_cost, next_state, moves + [swap]))
 
-    raise ValueError("Pas de chemin")
+    print(open_list)
