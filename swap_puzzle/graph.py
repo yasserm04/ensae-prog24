@@ -112,8 +112,8 @@ class Graph:
                     if neighbour == dst :
                         break
                     queue.append(neighbour)
-        if dst not in chemin :
-            raise ValueError("chemin impossible")
+        if dst not in queue :
+            return None
         chemin = [dst]
         node = dst
         while node != src :
